@@ -1,5 +1,6 @@
 import sqlite3
-from flask import Flask, render_template, g
+from flask import Flask, render_template
+from flask import g
 
 #Specify path to created db
 PATH = 'db/jobs.sqlite'
@@ -10,7 +11,7 @@ app = Flask(__name__)
 def open_connection():
     connection = getattr(g, '_connection', None)
     if connection == None:
-        connection = g.open_connection = sqlite3.connect(PATH)
+        connection = g._connection = sqlite3.connect(PATH)
     connection.row_factory = sqlite3.Row    
     return connection
 
