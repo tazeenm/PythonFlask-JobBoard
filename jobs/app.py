@@ -32,12 +32,12 @@ def close_connection(exception):
     if connection is not None:
         connection.close()
 
-
-
 #Create templates folder in jobs and an index.html in this templates folder
 
 #Create a route
 @app.route('/')
 @app.route('/jobs')
 def jobs():
-    return render_template('index.html')
+    jobs = execute_sql('SELECT job.id, job.title, job.description, job.salary, employer.id as employer_id, employer.name as employer_name from job JOIN employer ON employer.id = job.employer_id')
+    return render_template('index.html', jobs = jobs)
+
